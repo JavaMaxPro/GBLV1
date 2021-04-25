@@ -20,7 +20,7 @@ public class Task1<random> {
     }
 
     private static void masOut(int[] mas) {
-        for(int i = 0; i<mas.length; i++) System.out.print(mas[i]+" ");
+        for (int ma : mas) System.out.print(ma + " ");
         System.out.println();
 
     }
