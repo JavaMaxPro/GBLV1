@@ -19,11 +19,29 @@ public class TikTokToe {
         initMap();
         printMap();
 
+        humanTurn();
+        computerTurn();
+        isWin(DOT_X);
+    }
+
+    private static boolean isWin(char symbol) {
+        if (map[0][0] == symbol && map[0][1] == symbol && map[0][3] == symbol) return true;
+        if (map[1][0] == symbol && map[1][1] == symbol && map[1][3] == symbol) return true;
+        if (map[2][0] == symbol && map[2][1] == symbol && map[2][3] == symbol) return true;
+
+        if (map[0][0] == symbol && map[1][0] == symbol && map[3][0] == symbol) return true;
+        if (map[0][1] == symbol && map[1][1] == symbol && map[3][1] == symbol) return true;
+        if (map[0][2] == symbol && map[1][2] == symbol && map[3][2] == symbol) return true;
+
+        if (map[0][0] == symbol && map[1][1] == symbol && map[2][2] == symbol)return true;
+        if (map[0][2] == symbol && map[1][1] == symbol && map[2][0] == symbol)return true;
+
+        return false;
     }
 
     private static void humanTurn() {
-        int x ;
-        int y ;
+        int x;
+        int y;
         Scanner scan = new Scanner(System.in);
         do {
             System.out.println("Введите координату x y");
