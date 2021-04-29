@@ -19,22 +19,52 @@ public class TikTokToe {
         initMap();
         printMap();
 
-        humanTurn();
-        computerTurn();
-        isWin(DOT_X);
+        while (true) {
+            humanTurn();
+            printMap();
+            if (isWin(DOT_X)) {
+                System.out.println("Человек победил");
+                break;
+            }
+            if (isMapFull()){
+                System.out.println("Ничья");
+                break;
+            }
+            computerTurn();
+            printMap();
+            if (isWin(DOT_0)) {
+                System.out.println("Компьютер победил");
+                break;
+            }
+            if (isMapFull()){
+                System.out.println("Ничья");
+                break;
+            }
+        }
+    }
+
+    private static boolean isMapFull() {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (map[i][j] == DOT_EMPTY) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     private static boolean isWin(char symbol) {
-        if (map[0][0] == symbol && map[0][1] == symbol && map[0][3] == symbol) return true;
-        if (map[1][0] == symbol && map[1][1] == symbol && map[1][3] == symbol) return true;
-        if (map[2][0] == symbol && map[2][1] == symbol && map[2][3] == symbol) return true;
+        if (map[0][0] == symbol && map[0][1] == symbol && map[0][2] == symbol) return true;
+        if (map[1][0] == symbol && map[1][1] == symbol && map[1][2] == symbol) return true;
+        if (map[2][0] == symbol && map[2][1] == symbol && map[2][2] == symbol) return true;
 
-        if (map[0][0] == symbol && map[1][0] == symbol && map[3][0] == symbol) return true;
-        if (map[0][1] == symbol && map[1][1] == symbol && map[3][1] == symbol) return true;
-        if (map[0][2] == symbol && map[1][2] == symbol && map[3][2] == symbol) return true;
+        if (map[0][0] == symbol && map[1][0] == symbol && map[2][0] == symbol) return true;
+        if (map[0][1] == symbol && map[1][1] == symbol && map[2][1] == symbol) return true;
+        if (map[0][2] == symbol && map[1][2] == symbol && map[2][2] == symbol) return true;
 
-        if (map[0][0] == symbol && map[1][1] == symbol && map[2][2] == symbol)return true;
-        if (map[0][2] == symbol && map[1][1] == symbol && map[2][0] == symbol)return true;
+        if (map[0][0] == symbol && map[1][1] == symbol && map[2][2] == symbol) return true;
+        if (map[0][2] == symbol && map[1][1] == symbol && map[2][0] == symbol) return true;
 
         return false;
     }
