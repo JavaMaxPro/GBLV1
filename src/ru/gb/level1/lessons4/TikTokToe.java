@@ -6,7 +6,8 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class TikTokToe {
-    private static final int SIZE = 3;
+    private static final int SIZE = 5;
+    private static final int NUMBEROFWINS = 4;
 
     private static final char DOT_EMPTY = '•';
     private static final char DOT_X = 'X';
@@ -26,7 +27,7 @@ public class TikTokToe {
                 System.out.println("Человек победил");
                 break;
             }
-            if (isMapFull()){
+            if (isMapFull()) {
                 System.out.println("Ничья");
                 break;
             }
@@ -36,7 +37,7 @@ public class TikTokToe {
                 System.out.println("Компьютер победил");
                 break;
             }
-            if (isMapFull()){
+            if (isMapFull()) {
                 System.out.println("Ничья");
                 break;
             }
@@ -55,6 +56,40 @@ public class TikTokToe {
     }
 
     private static boolean isWin(char symbol) {
+
+        int gorizont;
+        int vertikal;
+        int diagonal;
+        int s = SIZE - NUMBEROFWINS;
+        int z, t;
+        for (int i = 0; i < SIZE; i++) {
+            gorizont = 1;
+            vertikal = 1;
+            for (int j = 0; j < SIZE - 1; j++) {
+                if (map[i][j] == map[i][j + 1] && map[i][j] == symbol) gorizont++;
+                else gorizont = 1;
+                if (gorizont == (SIZE - s)) return true;
+
+                if (map[j][i] == map[j + 1][i] && map[j][i] == symbol) vertikal++;
+                else vertikal = 1;
+                if (vertikal == (SIZE - s)) return true;
+            }
+
+        }
+        z = s;
+        t = 0;
+        while (z != 0 && t != s) {
+            diagonal = 1;
+            for (int i = 0; i < SIZE - s - 1; i++) {
+                if (map[i + z][i + t] == map[i + z + 1][i + t + 1] && map[i][i] == symbol) diagonal++;
+                if (diagonal == (SIZE - s)) return true;
+            }
+            if (z > 0) z--;
+            else t++;
+        }
+
+
+        /*
         if (map[0][0] == symbol && map[0][1] == symbol && map[0][2] == symbol) return true;
         if (map[1][0] == symbol && map[1][1] == symbol && map[1][2] == symbol) return true;
         if (map[2][0] == symbol && map[2][1] == symbol && map[2][2] == symbol) return true;
@@ -65,7 +100,7 @@ public class TikTokToe {
 
         if (map[0][0] == symbol && map[1][1] == symbol && map[2][2] == symbol) return true;
         if (map[0][2] == symbol && map[1][1] == symbol && map[2][0] == symbol) return true;
-
+*/
         return false;
     }
 
