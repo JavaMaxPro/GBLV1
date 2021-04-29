@@ -60,6 +60,7 @@ public class TikTokToe {
         int gorizont;
         int vertikal;
         int diagonal;
+        int diagonalobr;
         int s = SIZE - NUMBEROFWINS;
         int z, t;
         for (int i = 0; i < SIZE; i++) {
@@ -78,14 +79,27 @@ public class TikTokToe {
         }
         z = s;
         t = 0;
-        while (z != 0 && t != s) {
-            diagonal = 1;
-            for (int i = 0; i < SIZE - s - 1; i++) {
-                if (map[i + z][i + t] == map[i + z + 1][i + t + 1] && map[i][i] == symbol) diagonal++;
-                if (diagonal == (SIZE - s)) return true;
+        while (true) {
+
+            diagonal = 0;
+            diagonalobr=0;
+            for (int i = 0; i < SIZE ; i++) {
+                if((i+z<SIZE)&&(i+t<SIZE)) {
+                    if (map[i + z][i + t] == symbol) {
+                        diagonal++;
+                        if (diagonal == (SIZE - s)) return true;
+                    } else diagonal = 0;
+                    if (map[i + z][SIZE-1 -i- t] == symbol) {
+                        diagonalobr++;
+                        if (diagonalobr == (SIZE - s)) return true;
+                    } else diagonalobr = 0;
+                }
+                else continue;
             }
-            if (z > 0) z--;
-            else t++;
+            if((z <= 0) && (t == s)) break;;
+            if (z <= 0) t++;
+            else z--;
+
         }
 
 
