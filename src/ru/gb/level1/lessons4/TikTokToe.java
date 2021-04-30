@@ -31,12 +31,19 @@ public class TikTokToe {
                 System.out.println("Ничья");
                 break;
             }
-            computerTurn();
-            printMap();
-            if (isWin(DOT_0)) {
-                System.out.println("Компьютер победил");
-                break;
+
+
+            if (computerTurnVirtual()) printMap();
+            else {
+                computerTurn();
+                printMap();
             }
+
+            if (isWin(DOT_X))
+                if (isWin(DOT_0)) {
+                    System.out.println("Компьютер победил");
+                    break;
+                }
             if (isMapFull()) {
                 System.out.println("Ничья");
                 break;
@@ -57,50 +64,11 @@ public class TikTokToe {
 
     private static boolean isWin(char symbol) {
 
-        int gorizont;
-        int vertikal;
-        int diagonal;
-        int diagonalobr;
         int s = SIZE - NUMBEROFWINS;
-        int z, t;
-        for (int i = 0; i < SIZE; i++) {
-            gorizont = 1;
-            vertikal = 1;
-            for (int j = 0; j < SIZE - 1; j++) {
-                if (map[i][j] == map[i][j + 1] && map[i][j] == symbol) gorizont++;
-                else gorizont = 1;
-                if (gorizont == (SIZE - s)) return true;
+        if (getDiagVertik(symbol, s)) return true;
 
-                if (map[j][i] == map[j + 1][i] && map[j][i] == symbol) vertikal++;
-                else vertikal = 1;
-                if (vertikal == (SIZE - s)) return true;
-            }
-
-        }
-        z = s;
-        t = 0;
-        while (true) {
-
-            diagonal = 0;
-            diagonalobr=0;
-            for (int i = 0; i < SIZE ; i++) {
-                if((i+z<SIZE)&&(i+t<SIZE)) {
-                    if (map[i + z][i + t] == symbol) {
-                        diagonal++;
-                        if (diagonal == (SIZE - s)) return true;
-                    } else diagonal = 0;
-                    if (map[i + z][SIZE-1 -i- t] == symbol) {
-                        diagonalobr++;
-                        if (diagonalobr == (SIZE - s)) return true;
-                    } else diagonalobr = 0;
-                }
-                else continue;
-            }
-            if((z <= 0) && (t == s)) break;;
-            if (z <= 0) t++;
-            else z--;
-
-        }
+        Boolean x = getaDioganal(symbol, s);
+        if (x != null) return x;
 
 
         /*
@@ -116,6 +84,58 @@ public class TikTokToe {
         if (map[0][2] == symbol && map[1][1] == symbol && map[2][0] == symbol) return true;
 */
         return false;
+    }
+
+    private static boolean getDiagVertik(char symbol, int s) {
+        int gorizont;
+        int vertikal;
+        int z, t;
+        for (int i = 0; i < SIZE; i++) {
+            gorizont = 1;
+            vertikal = 1;
+            for (int j = 0; j < SIZE - 1; j++) {
+                if (map[i][j] == map[i][j + 1] && map[i][j] == symbol) gorizont++;
+                else gorizont = 1;
+                if (gorizont == (SIZE - s)) return true;
+
+                if (map[j][i] == map[j + 1][i] && map[j][i] == symbol) vertikal++;
+                else vertikal = 1;
+                if (vertikal == (SIZE - s)) return true;
+            }
+
+        }
+        return false;
+    }
+
+    private static Boolean getaDioganal(char symbol, int s) {
+        int z;
+        int t;
+        int diagonal;
+        int diagonalobr;
+        z = s;
+        t = 0;
+        while (true) {
+
+            diagonal = 0;
+            diagonalobr = 0;
+            for (int i = 0; i < SIZE; i++) {
+                if ((i + z < SIZE) && (i + t < SIZE)) {
+                    if (map[i + z][i + t] == symbol) {
+                        diagonal++;
+                        if (diagonal == (SIZE - s)) return true;
+                    } else diagonal = 0;
+                    if (map[i + z][SIZE - 1 - i - t] == symbol) {
+                        diagonalobr++;
+                        if (diagonalobr == (SIZE - s)) return true;
+                    } else diagonalobr = 0;
+                } else continue;
+            }
+            if ((z <= 0) && (t == s)) break;
+            if (z <= 0) t++;
+            else z--;
+
+        }
+        return null;
     }
 
     private static void humanTurn() {
@@ -151,6 +171,22 @@ public class TikTokToe {
             y = random.nextInt(SIZE);
         } while (map[x][y] != DOT_EMPTY);
         map[x][y] = DOT_0;
+    }
+
+    private static boolean computerTurnVirtual() {
+        for (int i = 0; i < SIZE; i++) {
+            for (int j = 0; j < SIZE; j++) {
+                if (map[i][j] == DOT_EMPTY) {
+                    map[i][j] = DOT_X;
+                    if (isWin(DOT_X)) {
+                        map[i][j] = DOT_0;
+                        return true;
+                    } else map[i][j] = DOT_EMPTY;
+                }
+            }
+        }
+        return false;
+
     }
 
     private static int readInt(Scanner scan) {
