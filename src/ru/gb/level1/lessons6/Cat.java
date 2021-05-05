@@ -10,10 +10,17 @@ public class Cat extends Animal {
         this.color = color;
         volCat++;
     }
+    public Cat(String name, int age, String color,int runCap) {
+        super(name, age,runCap);
+        this.color = color;
+        volCat++;
+    }
+
+
 
     @Override
     public void run(int run) {
-        if(run>200) System.out.println(super.getName() + ": Не побегу, лучше полежу");
+        if(run>super.getRunCap()) System.out.println(super.getName() + ": Не побегу, лучше полежу");
         else super.run(run);
 
     }

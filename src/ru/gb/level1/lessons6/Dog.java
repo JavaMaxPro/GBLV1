@@ -9,16 +9,26 @@ public class Dog extends Animal {
         this.poroda = poroda;
         volDog++;
     }
+    public Dog(String name, int age, String poroda,int runCap) {
+        super(name, age,runCap);
+        this.poroda = poroda;
+        volDog++;
+    }
+    public Dog(String name, int age, String poroda,int runCap,int swimCap) {
+        super(name, age,runCap,swimCap);
+        this.poroda = poroda;
+        volDog++;
+    }
 
     @Override
     public void run(int run) {
-        if(run>500) System.out.println(super.getName()+" - zzzzz....zzz...");
+        if(run>super.getRunCap()) System.out.println(super.getName()+" - zzzzz....zzz...");
         else super.run(run);
     }
 
     @Override
     public void swim(int swim) {
-        if(swim>10) System.out.println(super.getName() + " - Gav gav");
+        if(swim>super.getSwimCap()) System.out.println(super.getName() + " - Gav gav");
         else super.swim(swim);
     }
 
