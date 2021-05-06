@@ -4,14 +4,20 @@ public class Cat {
 
     private String name;
     private int appetite;
+    boolean fullness;
 
     public Cat(String name, int appetite) {
         this.name = name;
         this.appetite = appetite;
+        fullness = false;
     }
 
     public void eat(Plate p) {
-        p.decreaseFood(appetite);
+        if (appetite <= p.getFood()) {
+            p.decreaseFood(appetite);
+            fullness = true;
+        } else System.out.println(name+": Мало еды");
+
     }
 
     public String getName() {

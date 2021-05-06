@@ -10,7 +10,7 @@ public class Plate {
     }
 
     public void decreaseFood(int n) {
-        food -= n;
+        this.food -= n;
     }
 
     public int getFood() {
@@ -19,5 +19,8 @@ public class Plate {
 
     public void setFood(int food) {
         this.food = food;
+    }
+    public void addFood(int food) {
+        this.food += food;
     }
 }
