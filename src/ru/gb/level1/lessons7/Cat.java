@@ -13,10 +13,11 @@ public class Cat {
     }
 
     public void eat(Plate p) {
-        if (appetite <= p.getFood()) {
+        if ((appetite <= p.getFood())&&(!fullness)) {
             p.decreaseFood(appetite);
             fullness = true;
-        } else System.out.println(name+": Мало еды");
+            System.out.println(name +":Муррр я сыт");
+        } else System.out.println(name+":Мяу мало еды");
 
     }
 
