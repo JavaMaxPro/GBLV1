@@ -7,9 +7,10 @@ import java.awt.event.ActionListener;
 
 public class CounterApp extends JFrame {
     private int value;
+    private int step = 1;
 
     public CounterApp(int initialValue) {
-        setBounds(500, 500, 300, 120);
+        setBounds(500, 500, 640, 320);
         setTitle("Simple Counter");
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -31,10 +32,27 @@ public class CounterApp extends JFrame {
         incrementButton.setFont(font);
         add(incrementButton, BorderLayout.EAST);
 
+        JButton clearButton = new JButton("clear");
+        clearButton.setFont(font);
+        add(clearButton, BorderLayout.SOUTH);
+
+        JTextField textLabel = new JTextField("Step");
+        textLabel.setFont(font);
+        textLabel.setHorizontalAlignment(SwingConstants.CENTER);
+        add(textLabel,BorderLayout.NORTH);
+
+        clearButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                value = 0;
+                counterValueView.setText(String.valueOf(value));
+            }
+        });
+
         decrementButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                value--;
+                value-=step;
                 counterValueView.setText(String.valueOf(value));
             }
         });
@@ -42,11 +60,17 @@ public class CounterApp extends JFrame {
         incrementButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                value++;
+                value+=step;
                 counterValueView.setText(String.valueOf(value));
             }
         });
 
+        textLabel.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                step= Integer.parseInt(textLabel.getText());
+            }
+        });
         setVisible(true);
     }
 
